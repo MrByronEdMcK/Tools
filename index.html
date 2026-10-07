@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MrByronEdMcK Educational Tools Hub - Interactive STEM and Mathematics Visualizers for Classrooms, Students, and Teachers.">
+  <meta name="author" content="MrByronEdMcK">
+  <title>MrByronEdMcK • Educational Tools Hub</title>
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Shared Design System & Theme CSS -->
+  <link rel="stylesheet" href="./shared/css/theme.css">
+  <link rel="stylesheet" href="./index.css">
+
+  <!-- Immediate Theme Initializer (prevents flash of wrong theme) -->
+  <script src="./shared/js/theme.js"></script>
+</head>
+<body class="bg-grid-pattern">
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <div class="brand-badge-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            <line x1="9" y1="7" x2="15" y2="7"></line>
+            <line x1="9" y1="11" x2="13" y2="11"></line>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">MrByronEdMcK</span>
+          <span class="brand-sub">Educational Tools Hub</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <!-- GitHub Repo Link -->
+        <a href="https://github.com/MrByronEdMcK/MrByronEdMck" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="View Source on GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+          </svg>
+          <span class="btn-text">GitHub</span>
+        </a>
+
+        <!-- Global Light / Dark Theme Switcher -->
+        <button id="btn-theme-toggle" class="btn-theme-toggle" title="Toggle Theme">
+          <span id="theme-icon"></span>
+          <span class="theme-label">Theme</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-badge">
+        <span class="badge badge-primary">Interactive Mathematics & STEM</span>
+      </div>
+      <h1 class="hero-title">
+        Empowering Learning with <span class="gradient-text">Interactive Visualizers</span>
+      </h1>
+      <p class="hero-description">
+        Welcome to <strong>MrByronEdMcK</strong>. This hub provides modern, high-contrast visual exploration environments engineered for mathematics classrooms, teacher presentations, interactive whiteboards, and hands-on student discovery.
+      </p>
+
+      <!-- Key Highlights -->
+      <div class="hero-features">
+        <div class="feature-pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Curriculum Aligned</span>
+        </div>
+        <div class="feature-pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span>Real-Time Computation</span>
+        </div>
+        <div class="feature-pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          <span>Whiteboard & Projector Ready</span>
+        </div>
+        <div class="feature-pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>Light & Dark Themes</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Filter Controls -->
+    <section class="controls-section">
+      <div class="search-box">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="search-input" class="input-control search-input-field" placeholder="Search tools by title, topic, formula, or tag..." autocomplete="off">
+        <button id="search-clear" class="search-clear-btn" style="display: none;" title="Clear search">✕</button>
+      </div>
+
+      <div class="category-filters" id="category-filters">
+        <!-- Dynamically rendered category buttons -->
+        <button class="filter-btn active" data-category="all">All Tools</button>
+        <button class="filter-btn" data-category="Graph Theory">Graph Theory</button>
+        <button class="filter-btn" data-category="Statistics & Data">Statistics & Data</button>
+      </div>
+
+      <div class="tools-counter" id="tools-counter">
+        Showing <strong>2</strong> interactive tools
+      </div>
+    </section>
+
+    <!-- Tools Grid -->
+    <section class="tools-grid-section">
+      <div class="tools-grid" id="tools-grid">
+        <!-- Populated dynamically by index.js with fallback -->
+      </div>
+      <div id="no-results" class="no-results-state" style="display: none;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          <line x1="8" y1="11" x2="14" y2="11"></line>
+        </svg>
+        <h3>No matching tools found</h3>
+        <p>Try searching for a different mathematical topic, keyword, or clear your filters.</p>
+        <button id="btn-reset-filters" class="btn btn-secondary btn-sm">Reset Search & Filters</button>
+      </div>
+    </section>
+
+
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <strong>MrByronEdMcK</strong> • Educational Tools Portal
+        <span class="footer-muted">Developed for high school and university mathematics & STEM learning</span>
+      </div>
+      <div class="footer-right">
+        <a href="./tests/index.html">Diagnostics &amp; Tests</a>
+        <span class="footer-dot">•</span>
+        <a href="https://github.com/MrByronEdMcK/MrByronEdMck" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+        <span class="footer-dot">•</span>
+        <a href="https://mrbyronedmck.github.io/MrByronEdMck/" target="_blank" rel="noopener noreferrer">GitHub Pages Live Site</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./shared/js/tools-data.js"></script>
+  <script src="./index.js"></script>
+</body>
+</html>

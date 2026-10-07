@@ -1,0 +1,652 @@
+<!-- 
+  Interactive Network Graph Studio
+  Developed by / for MrByronEdMcK - Mathematics Education Resources
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="MrByronEdMcK">
+  <title>Interactive Network Graph Studio • MrByronEdMcK</title>
+  <!-- Shared Design System & Theme Engine -->
+  <link rel="stylesheet" href="../../shared/css/theme.css">
+  <link rel="stylesheet" href="../../shared/css/tool-nav.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="../../shared/js/theme.js"></script>
+</head>
+<body class="theme-monochrome">
+
+  <!-- Top Navigation & Header Bar -->
+  <header class="app-header">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="../../index.html" class="mrbyron-back-hub" title="Return to Educational Tools Hub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span class="hub-text">All Tools</span>
+      </a>
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="6" cy="6" r="3"/>
+            <circle cx="18" cy="6" r="3"/>
+            <circle cx="12" cy="18" r="3"/>
+            <line x1="8.5" y1="7.5" x2="15.5" y2="7.5"/>
+            <line x1="7.2" y1="8.5" x2="10.8" y2="15.5"/>
+            <line x1="16.8" y1="8.5" x2="13.2" y2="15.5"/>
+          </svg>
+        </div>
+        <div class="brand-title">
+          <h1>Network Studio <span class="badge badge-primary" style="font-size: 0.65rem; margin-left: 6px;">MrByronEdMcK</span></h1>
+          <span class="sub-tag">Interactive Graph Workbench</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode Switcher Tabs -->
+    <div class="mode-tabs">
+      <button id="tab-create" class="tab-btn active" data-pane="create">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+        Create Pane
+      </button>
+      <button id="tab-interact" class="tab-btn" data-pane="interact">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 14 14"/>
+        </svg>
+        Interact Pane
+      </button>
+    </div>
+
+    <!-- Global Actions -->
+    <div class="header-actions">
+      <!-- Theme Switcher Toggle Button -->
+      <button id="btn-theme-toggle" class="btn-theme-toggle" title="Toggle Theme">
+        <span id="theme-icon"></span>
+        <span class="theme-label">Theme</span>
+      </button>
+
+      <button id="btn-export-image" class="btn btn-secondary" title="Export clean PNG diagram for tests/worksheets">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        Export Image
+      </button>
+
+      <button id="btn-export-set" class="btn btn-secondary" title="Export current Set to JSON">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Export Set
+      </button>
+      
+      <label id="btn-import-label" class="btn btn-secondary" title="Import Set from JSON">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Import Set
+        <input type="file" id="input-import-set" accept=".json" style="display: none;">
+      </label>
+
+      <button id="btn-load-sample" class="btn btn-outline" title="Load Sample Textbook Graphs">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+        Textbook Samples
+      </button>
+    </div>
+  </header>
+
+  <!-- Network Set Navigation Bar -->
+  <div class="set-bar">
+    <div class="set-info">
+      <span class="set-label">Active Set:</span>
+      <input type="text" id="set-title-input" value="MrByronEd Network Set 1" placeholder="Set Title...">
+    </div>
+    
+    <div class="network-tabs-container">
+      <div id="network-tabs" class="network-tabs">
+        <!-- Rendered via JS -->
+      </div>
+      <button id="btn-add-network" class="btn-icon" title="Add New Network to Set">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Workspace Layout -->
+  <main class="workspace">
+    
+    <!-- Left Toolbar (Tool Palette) -->
+    <aside class="toolbar" id="main-toolbar">
+      <div class="tool-group create-only-tool">
+        <div class="group-header">Edit Tools</div>
+        <button class="tool-btn active" data-tool="select" title="Select & Move Vertices/Edges">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3l7 18 3-7 7-3L3 3z"/>
+          </svg>
+          <span>Select/Move</span>
+        </button>
+        <button class="tool-btn" data-tool="add-vertex" title="Click on canvas to add a new vertex">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="7"/>
+            <line x1="12" y1="9" x2="12" y2="15"/>
+            <line x1="9" y1="12" x2="15" y2="12"/>
+          </svg>
+          <span>Add Node</span>
+        </button>
+        <button class="tool-btn" data-tool="add-edge" title="Click two vertices to connect with an edge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="6" r="3"/>
+            <line x1="8.5" y1="16" x2="15.5" y2="8"/>
+          </svg>
+          <span>Connect Edge</span>
+        </button>
+        <button class="tool-btn" data-tool="bend-edge" title="Drag edge curve control points">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 17c6 0 6-10 18-10"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <span>Bend Edge</span>
+        </button>
+        <button class="tool-btn tool-danger" data-tool="delete" title="Click vertex or edge to remove">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+          <span>Delete Element</span>
+        </button>
+      </div>
+
+      <div class="tool-group interact-only-tool" style="display: none;">
+        <div class="group-header">Interact Mode</div>
+        <div class="interact-notice">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span>Topology is locked. Drag vertices and edge handles to uncross edges and make the graph planar!</span>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <div class="group-header">Layout Presets</div>
+        <button id="btn-layout-circle" class="btn btn-sm btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9"/>
+          </svg>
+          Circle Layout
+        </button>
+        <button id="btn-layout-grid" class="btn btn-sm btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+          </svg>
+          Grid Layout
+        </button>
+        <button id="btn-layout-reset-bends" class="btn btn-sm btn-outline" title="Reset all curved edges to straight lines">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="12" x2="20" y2="12"/>
+          </svg>
+          Straighten Edges
+        </button>
+      </div>
+
+      <div class="tool-group create-only-tool">
+        <button id="btn-clear-graph" class="btn btn-sm btn-danger-outline" style="width: 100%;">
+          Clear Network
+        </button>
+      </div>
+    </aside>
+
+    <!-- Canvas Area -->
+    <section class="canvas-container" id="canvas-container">
+      
+      <!-- Mode Badge Indicator -->
+      <div id="pane-mode-badge" class="mode-badge create-mode">
+        <span class="badge-dot"></span>
+        <span id="pane-badge-text">CREATE MODE</span>
+      </div>
+
+      <!-- Planar Indicator Banner (Interact Mode) -->
+      <div id="planar-status-banner" class="planar-banner planar-unknown" style="display: none;">
+        <div class="planar-status-icon">
+          <svg id="planar-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <!-- Icon rendered dynamically -->
+          </svg>
+        </div>
+        <div class="planar-status-details">
+          <strong id="planar-status-title">Checking Planarity...</strong>
+          <span id="planar-status-sub">Drag vertices/edges to disentangle crossings.</span>
+        </div>
+      </div>
+
+      <!-- Main SVG Layer -->
+      <svg id="network-svg" width="100%" height="100%">
+        <defs>
+          <pattern id="grid-pattern" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1"/>
+          </pattern>
+          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+
+        <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+        
+        <!-- Master Viewport Group for Pan & Zoom -->
+        <g id="viewport-root">
+          <g id="layer-edges"></g>
+          <g id="layer-analysis"></g>
+          <g id="layer-handles"></g>
+          <g id="layer-crossings"></g>
+          <g id="layer-vertices"></g>
+          <g id="layer-temp"></g>
+        </g>
+      </svg>
+
+      <!-- Floating Canvas Zoom & View Controls -->
+      <div class="canvas-zoom-controls">
+        <button id="btn-zoom-in" class="btn-zoom" title="Zoom In (+)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+        <span id="zoom-level-label" class="zoom-level-text" title="Click to Reset Zoom">100%</span>
+        <button id="btn-zoom-out" class="btn-zoom" title="Zoom Out (-)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+        <div class="zoom-divider"></div>
+        <button id="btn-zoom-reset" class="btn-zoom btn-zoom-action" title="Reset Zoom (100%)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+        </button>
+        <button id="btn-zoom-fit" class="btn-zoom btn-zoom-action" title="Fit Network to View">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Canvas Instructions Overlay -->
+      <div class="canvas-hint" id="canvas-hint">
+        <span id="hint-text">Double-click or select "Add Node" to create vertices. Scroll or use controls to zoom.</span>
+      </div>
+    </section>
+
+    <!-- Right Sidebar (Inspector, Matrix & Graph Stats) -->
+    <aside class="sidebar">
+      
+      <!-- Element Style Inspector Section (Active in Create Mode) -->
+      <div class="sidebar-card create-only-tool" id="card-element-inspector">
+        <div class="card-header" data-toggle-card="card-element-inspector">
+          <div class="card-header-title">
+            <svg class="collapse-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+            <span id="inspector-title">Element Style</span>
+          </div>
+          <div class="card-header-actions" style="display: flex; gap: 4px; align-items: center;">
+            <button id="btn-deselect-element" class="btn btn-xs btn-outline" style="display: none;" title="Deselect element">Deselect</button>
+            <button id="btn-toggle-inspector-card" class="btn btn-xs btn-outline" title="Hide/Show element style panel">Hide</button>
+          </div>
+        </div>
+
+        <!-- Default Empty State -->
+        <div class="card-body" id="inspector-body-empty">
+          <p class="card-desc" style="margin-bottom: 0; text-align: center; padding: 12px 0; color: var(--text-dim);">
+            Click any node or connection to customize its color, line style, direction, and thickness.
+          </p>
+        </div>
+
+        <!-- Edge Customization Controls -->
+        <div class="card-body" id="inspector-body-edge" style="display: none;">
+          <div class="inspector-field">
+            <label class="field-label">Line Style</label>
+            <div class="btn-group-segmented" id="edge-style-group">
+              <button class="seg-btn active" data-style="solid">Solid</button>
+              <button class="seg-btn" data-style="dashed">Dashed</button>
+              <button class="seg-btn" data-style="dotted">Dotted</button>
+            </div>
+          </div>
+
+          <div class="inspector-field">
+            <label class="field-label">Direction / Arrow</label>
+            <div class="btn-group-segmented" id="edge-direction-group">
+              <button class="seg-btn active" data-dir="none" title="Undirected">None</button>
+              <button class="seg-btn" data-dir="forward" title="Forward (A to B)">&rarr;</button>
+              <button class="seg-btn" data-dir="reverse" title="Reverse (B to A)">&larr;</button>
+              <button class="seg-btn" data-dir="bidirectional" title="Bidirectional">&harr;</button>
+            </div>
+          </div>
+
+          <div class="inspector-field">
+            <div class="field-label-row">
+              <label class="field-label">Thickness</label>
+              <span id="val-edge-thickness" class="field-val-badge">3px</span>
+            </div>
+            <div class="btn-group-thickness" id="edge-thickness-group">
+              <button class="thick-btn" data-thick="1.5">1.5px</button>
+              <button class="thick-btn active" data-thick="3">3px</button>
+              <button class="thick-btn" data-thick="5">5px</button>
+              <button class="thick-btn" data-thick="7">7px</button>
+            </div>
+          </div>
+
+          <div class="inspector-field">
+            <label class="field-label">Line Colour</label>
+            <div class="color-palette-container">
+              <div class="color-palette" id="edge-color-palette">
+                <!-- Color swatches -->
+              </div>
+              <div class="custom-color-picker-wrap">
+                <input type="color" id="edge-custom-color" class="custom-color-input" title="Custom color">
+                <span class="custom-color-label">Custom</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="inspector-field">
+            <div class="field-label-row">
+              <label class="field-label" for="input-edge-weight">Edge Weight / Label</label>
+            </div>
+            <input type="text" id="input-edge-weight" class="inspector-input" placeholder="e.g. 5, 3.5, x, 2a+1...">
+          </div>
+
+          <div class="inspector-actions">
+            <button id="btn-reset-edge-style" class="btn btn-xs btn-outline" style="flex: 1;">Reset Style</button>
+            <button id="btn-delete-selected-edge" class="btn btn-xs btn-danger-outline create-only-inline">Delete Edge</button>
+          </div>
+        </div>
+
+        <!-- Vertex Customization Controls -->
+        <div class="card-body" id="inspector-body-vertex" style="display: none;">
+          <div class="inspector-field">
+            <label class="field-label" for="input-vertex-label">Node Label</label>
+            <input type="text" id="input-vertex-label" class="inspector-input" maxlength="12" placeholder="e.g. A, B, 1...">
+          </div>
+
+          <div class="inspector-field">
+            <label class="field-label">Node Fill Colour</label>
+            <div class="color-palette-container">
+              <div class="color-palette" id="vertex-fill-palette">
+                <!-- Swatches -->
+              </div>
+              <div class="custom-color-picker-wrap">
+                <input type="color" id="vertex-custom-fill" class="custom-color-input" title="Custom fill">
+                <span class="custom-color-label">Custom</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="inspector-field">
+            <label class="field-label">Border Colour</label>
+            <div class="color-palette-container">
+              <div class="color-palette" id="vertex-stroke-palette">
+                <!-- Swatches -->
+              </div>
+              <div class="custom-color-picker-wrap">
+                <input type="color" id="vertex-custom-stroke" class="custom-color-input" title="Custom border">
+                <span class="custom-color-label">Custom</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="inspector-field">
+            <div class="field-label-row">
+              <label class="field-label">Border Thickness</label>
+              <span id="val-vertex-stroke-width" class="field-val-badge">2.5px</span>
+            </div>
+            <div class="btn-group-thickness" id="vertex-stroke-width-group">
+              <button class="thick-btn" data-thick="1.5">1.5px</button>
+              <button class="thick-btn active" data-thick="2.5">2.5px</button>
+              <button class="thick-btn" data-thick="4">4px</button>
+              <button class="thick-btn" data-thick="6">6px</button>
+            </div>
+          </div>
+
+          <div class="inspector-actions">
+            <button id="btn-reset-vertex-style" class="btn btn-xs btn-outline" style="flex: 1;">Reset Style</button>
+            <button id="btn-delete-selected-vertex" class="btn btn-xs btn-danger-outline create-only-inline">Delete Node</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Graph Analysis & Path Explorer (Active in Interact Mode) -->
+      <div class="sidebar-card interact-only-tool" id="card-interact-analysis" style="display: none;">
+        <div class="card-header" data-toggle-card="card-interact-analysis">
+          <div class="card-header-title">
+            <svg class="collapse-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="6" cy="6" r="3"/>
+              <circle cx="18" cy="18" r="3"/>
+              <line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/>
+            </svg>
+            <span>Path Explorer & Analysis</span>
+          </div>
+        </div>
+        
+        <div class="card-body">
+          <p class="card-desc">
+            Calculate shortest routes (Dijkstra), minimum spanning trees, and inspect network paths.
+          </p>
+
+          <!-- Shortest Path Sub-Section -->
+          <div class="analysis-section">
+            <div class="analysis-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+              <span>Shortest Path (Dijkstra)</span>
+            </div>
+            <div class="path-picker-row">
+              <div class="path-picker-col">
+                <label class="analysis-label">Start</label>
+                <select id="select-path-start" class="inspector-input analysis-select"></select>
+              </div>
+              <div class="path-picker-arrow">&rarr;</div>
+              <div class="path-picker-col">
+                <label class="analysis-label">End</label>
+                <select id="select-path-end" class="inspector-input analysis-select"></select>
+              </div>
+            </div>
+            <button id="btn-find-shortest-path" class="btn btn-sm btn-primary" style="width: 100%; margin-top: 6px;">
+              Find Shortest Route
+            </button>
+          </div>
+
+          <!-- Algorithms Sub-Section -->
+          <div class="analysis-section" style="margin-top: 10px;">
+            <div class="analysis-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+              <span>Network Algorithms</span>
+            </div>
+            <div class="analysis-btn-grid">
+              <button id="btn-find-mst" class="btn btn-xs btn-outline">Min Spanning Tree</button>
+              <button id="btn-check-eulerian" class="btn btn-xs btn-outline">Check Euler Trail</button>
+            </div>
+          </div>
+
+          <!-- Live Analysis Results Output Box -->
+          <div id="analysis-result-box" class="analysis-result-box" style="display: none;">
+            <div class="result-header">
+              <span id="result-title">Shortest Path Found</span>
+              <button id="btn-clear-analysis" class="btn btn-xs btn-outline">Clear</button>
+            </div>
+            <div id="result-badge-val" class="result-badge">Total Distance: 0</div>
+            <div id="result-path-seq" class="result-sequence">A &rarr; B</div>
+            <div id="result-notes" class="result-notes"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Adjacency Connection Matrix Section (Active in Create Mode) -->
+      <div class="sidebar-card create-only-tool" id="card-matrix">
+        <div class="card-header" data-toggle-card="card-matrix">
+          <div class="card-header-title">
+            <svg class="collapse-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <line x1="3" y1="9" x2="21" y2="9"/>
+              <line x1="3" y1="15" x2="21" y2="15"/>
+              <line x1="9" y1="3" x2="9" y2="21"/>
+              <line x1="15" y1="3" x2="15" y2="21"/>
+            </svg>
+            <span>Connection Matrix</span>
+          </div>
+          <button id="btn-add-matrix-vertex" class="btn btn-xs btn-outline create-only-inline" title="Add New Vertex via Matrix">
+            + Row/Col
+          </button>
+        </div>
+        
+        <div class="card-body">
+          <p class="card-desc" id="matrix-desc">
+            Adjacency matrix showing edge connections. In Create Mode, edit cell numbers (0, 1, 2...) to update graph live!
+          </p>
+
+          <div class="matrix-table-wrapper">
+            <table id="matrix-table" class="matrix-table">
+              <!-- Matrix rendered dynamically -->
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graph Statistics & Properties Section -->
+      <div class="sidebar-card" id="card-properties">
+        <div class="card-header" data-toggle-card="card-properties">
+          <div class="card-header-title">
+            <svg class="collapse-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+            <span>Graph Properties</span>
+          </div>
+        </div>
+        
+        <div class="card-body">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-value" id="stat-vertices">0</span>
+              <span class="stat-label">Vertices (V)</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="stat-edges">0</span>
+              <span class="stat-label">Edges (E)</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="stat-crossings">0</span>
+              <span class="stat-label">Edge Crossings</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="stat-faces">-</span>
+              <span class="stat-label">Faces (F)</span>
+            </div>
+          </div>
+
+          <div class="property-list">
+            <div class="prop-row">
+              <span class="prop-name">Graph Type:</span>
+              <span class="prop-val" id="prop-type">Undirected</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-name">Degree Sequence:</span>
+              <span class="prop-val mono" id="prop-degrees">[]</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-name">Euler Formula:</span>
+              <span class="prop-val mono" id="prop-euler">V - E + F = 2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+  </main>
+
+  <!-- Textbook Sample Selector Modal -->
+  <div id="modal-sample" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Select Textbook Sample Network</h2>
+        <button class="btn-close-modal" id="btn-close-sample-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Choose a classic textbook network problem to load into your active set:</p>
+        <div class="sample-grid">
+          <div class="sample-card" data-sample="k33">
+            <div class="sample-badge">Non-Planar</div>
+            <h3>Three Utilities Problem (K₃,₃)</h3>
+            <p>6 vertices, 9 edges. Classic bipartite problem connecting 3 houses to 3 utility providers without crossing lines.</p>
+          </div>
+          <div class="sample-card" data-sample="k5">
+            <div class="sample-badge">Non-Planar</div>
+            <h3>Complete Graph (K₅)</h3>
+            <p>5 vertices where every pair is connected by an edge. Famous minimal non-planar graph.</p>
+          </div>
+          <div class="sample-card" data-sample="planar_challenge1">
+            <div class="sample-badge planar">Planar Challenge</div>
+            <h3>Untangle Me: Planar Octahedron</h3>
+            <p>A planar network rendered with overlapping edges. Can you drag vertices and edge curves to eliminate all crossings?</p>
+          </div>
+          <div class="sample-card" data-sample="planar_challenge2">
+            <div class="sample-badge planar">Planar Challenge</div>
+            <h3>Nested Prism Graph</h3>
+            <p>8 vertices planar graph initially arranged with intersecting lines. Untangle it into a clean planar layout!</p>
+          </div>
+          <div class="sample-card" data-sample="konigsberg">
+            <div class="sample-badge">Multigraph</div>
+            <h3>Bridges of Königsberg</h3>
+            <p>4 land masses connected by 7 bridges (edges with multiple curved connections).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

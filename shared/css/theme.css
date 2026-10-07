@@ -1,0 +1,403 @@
+/* ==========================================================================
+   MrByronEdMcK Educational Tools Hub - Shared Design System & Theme Engine
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Typography */
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Layout & Sizing */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 9999px;
+  --header-height: 64px;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ----------------------------------------------------
+     DEFAULT LIGHT THEME (Clean, High-Contrast, Classroom & Textbook Ready)
+     ---------------------------------------------------- */
+  --bg-body: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-subtle: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-card-border-hover: #cbd5e1;
+
+  --border-subtle: #f1f5f9;
+  --border-main: #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #64748b;
+  --text-inverted: #ffffff;
+
+  --accent-primary: #4f46e5;
+  --accent-primary-hover: #4338ca;
+  --accent-primary-subtle: #eef2ff;
+  --accent-primary-glow: rgba(79, 70, 229, 0.15);
+
+  --accent-secondary: #0284c7;
+  --accent-secondary-subtle: #e0f2fe;
+
+  --accent-success: #16a34a;
+  --accent-success-subtle: #dcfce7;
+  
+  --accent-warning: #d97706;
+  --accent-warning-subtle: #fef3c7;
+
+  --accent-danger: #dc2626;
+  --accent-danger-subtle: #fee2e2;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 20px -3px rgba(15, 23, 42, 0.07), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --shadow-card-hover: 0 20px 30px -8px rgba(79, 70, 229, 0.12), 0 8px 12px -4px rgba(15, 23, 42, 0.06);
+
+  --grid-line-color: rgba(15, 23, 42, 0.04);
+}
+
+/* ----------------------------------------------------
+   DARK THEME OVERRIDES
+   ---------------------------------------------------- */
+[data-theme="dark"],
+body.theme-dark {
+  --bg-body: #0b0f17;
+  --bg-surface: #111827;
+  --bg-surface-subtle: #1a2234;
+  --bg-card: #141c2e;
+  --bg-card-hover: #19243a;
+  --bg-card-border-hover: #334155;
+
+  --border-subtle: #1e293b;
+  --border-main: #2a374d;
+  --border-strong: #3b4d6a;
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --text-inverted: #0f172a;
+
+  --accent-primary: #6366f1;
+  --accent-primary-hover: #818cf8;
+  --accent-primary-subtle: rgba(99, 102, 241, 0.15);
+  --accent-primary-glow: rgba(99, 102, 241, 0.25);
+
+  --accent-secondary: #38bdf8;
+  --accent-secondary-subtle: rgba(56, 189, 248, 0.15);
+
+  --accent-success: #22c55e;
+  --accent-success-subtle: rgba(34, 197, 94, 0.15);
+
+  --accent-warning: #f59e0b;
+  --accent-warning-subtle: rgba(245, 158, 11, 0.15);
+
+  --accent-danger: #ef4444;
+  --accent-danger-subtle: rgba(239, 68, 68, 0.15);
+
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.6);
+  --shadow-card-hover: 0 20px 35px -8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(99, 102, 241, 0.25);
+
+  --grid-line-color: rgba(255, 255, 255, 0.03);
+}
+
+/* ==========================================================================
+   Base Elements Reset & Global Setup
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 100vh;
+}
+
+/* Universal Smooth Theme Transitions for components */
+body,
+header,
+footer,
+nav,
+aside,
+section,
+.navbar,
+.app-header,
+.mrbyron-tool-header,
+.card,
+.tool-card,
+.stat-box,
+.filter-btn,
+.search-wrapper,
+.search-input,
+.btn,
+.btn-theme-toggle,
+.badge,
+.pill,
+.canvas-section,
+.canvas-overlay-bar,
+.sidebar,
+.preset-btn,
+.points-table th,
+.points-table td,
+.toggle-switch .slider,
+.test-summary-card,
+.test-controls-card,
+.suite-card,
+.test-row,
+.metric-box {
+  transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Subtle background pattern */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Links */
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-primary-hover);
+}
+
+/* ==========================================================================
+   Shared Component Styles (Buttons, Badges, Tags, Inputs)
+   ========================================================================== */
+
+/* Button System */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  box-shadow: 0 2px 8px var(--accent-primary-glow);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-primary-hover);
+  color: #ffffff;
+  box-shadow: 0 4px 14px var(--accent-primary-glow);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--bg-surface-subtle);
+  color: var(--text-main);
+  border-color: var(--border-main);
+}
+
+.btn-secondary:hover {
+  background-color: var(--border-main);
+  color: var(--text-main);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+  background-color: var(--bg-surface-subtle);
+  color: var(--text-main);
+}
+
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+  font-size: 1rem;
+  padding: 12px 24px;
+  border-radius: var(--radius-lg);
+}
+
+/* Icon Buttons */
+.btn-icon {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-main);
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-icon:hover {
+  background-color: var(--bg-surface);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Theme Switcher Button */
+.btn-theme-toggle {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-main);
+  color: var(--text-main);
+  border-radius: var(--radius-full);
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-theme-toggle:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background-color: var(--bg-surface);
+}
+
+.btn-theme-toggle svg {
+  transition: transform var(--transition-smooth);
+}
+
+/* Badges & Tags */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+}
+
+.badge-primary {
+  background-color: var(--accent-primary-subtle);
+  color: var(--accent-primary);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.badge-secondary {
+  background-color: var(--accent-secondary-subtle);
+  color: var(--accent-secondary);
+  border-color: rgba(2, 132, 199, 0.2);
+}
+
+.badge-success {
+  background-color: var(--accent-success-subtle);
+  color: var(--accent-success);
+  border-color: rgba(22, 163, 74, 0.2);
+}
+
+.badge-warning {
+  background-color: var(--accent-warning-subtle);
+  color: var(--accent-warning);
+  border-color: rgba(217, 119, 6, 0.2);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-main);
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.tag:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-main);
+}
+
+/* Inputs & Search Controls */
+.input-control {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-main);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  padding: 10px 14px;
+  outline: none;
+  transition: all var(--transition-fast);
+  width: 100%;
+}
+
+.input-control:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--accent-primary-glow);
+}
+
+.input-control::placeholder {
+  color: var(--text-dim);
+}
