@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MrByronEdMcK Educational Tools Hub - Test Runner CLI
+Educational Tools Hub - Test Runner CLI
 Usage:
     python tests/run_tests.py --quick     # Run fast smoke test suite (minor changes)
     python tests/run_tests.py --full      # Run complete regression test suite (major changes)
@@ -64,7 +64,7 @@ def run_suite(suite_name, test_classes):
         return False
 
 def main():
-    parser = argparse.ArgumentParser(description="MrByronEdMcK Educational Tools Test Runner")
+    parser = argparse.ArgumentParser(description="Educational Tools Test Runner")
     parser.add_argument(
         '--quick', '-q',
         action='store_true',
@@ -83,14 +83,14 @@ def main():
 
     if is_quick:
         print_header(
-            "MrByronEdMcK - Quick Smoke Test Suite (Minor Changes)",
+            "Educational Tools - Quick Smoke Test Suite (Minor Changes)",
             "Testing file structure, links, schema, branding, and theme tokens"
         )
         classes = [test_hub.TestHubIntegrity]
         success = run_suite("Minor / Quick Checks", classes)
     else:
         print_header(
-            "MrByronEdMcK - Full Regression Test Suite (Major Changes)",
+            "Educational Tools - Full Regression Test Suite (Major Changes)",
             "Testing algorithms, mathematics precision, button IDs, links, and schemas"
         )
         classes = [

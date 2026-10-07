@@ -3,70 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Least Squares Linear Regression Visualizer</title>
-  <meta name="description" content="Interactive visualizer for Linear Least Squares Regression, vertical residuals, and squared residual areas.">
+  <title>Linear Regression Visualizer | Least Squares Fit</title>
+  <meta name="description" content="Interactive visualizer for Linear Least Squares Regression, vertical residuals, and squared error areas.">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
   <!-- Shared Design System & Theme Engine -->
   <link rel="stylesheet" href="../../shared/css/theme.css">
+  <link rel="stylesheet" href="../../shared/css/components.css">
   <link rel="stylesheet" href="../../shared/css/tool-nav.css">
   <link rel="stylesheet" href="styles.css">
+
   <script src="../../shared/js/theme.js"></script>
 </head>
 <body>
   <div class="app-container">
     <!-- Top Header -->
     <header class="app-header">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <a href="../../index.html" class="mrbyron-back-hub" title="Return to Educational Tools Hub">
+      <div class="nav-left">
+        <a href="../../index.html" class="mrbyron-back-hub btn-back-hub" title="Return to Tools Hub">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
           <span class="hub-text">All Tools</span>
         </a>
+
+        <div class="nav-divider"></div>
+
         <div class="brand">
           <div class="brand-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="3" y1="20" x2="21" y2="4"></line>
               <circle cx="7" cy="16" r="2" fill="currentColor"></circle>
               <circle cx="12" cy="10" r="2" fill="currentColor"></circle>
               <circle cx="17" cy="6" r="2" fill="currentColor"></circle>
             </svg>
           </div>
-          <div>
-            <h1>Least Squares Regression Visualizer <span class="badge badge-primary" style="font-size: 0.65rem; margin-left: 6px;">MrByronEdMcK</span></h1>
-            <p class="subtitle">Drag line handles, observe residual squares, and animate optimal OLS fit</p>
+          <div class="brand-title">
+            <h1>Regression Visualizer</h1>
           </div>
         </div>
       </div>
 
       <div class="header-actions">
-        <button id="btn-theme-toggle" class="btn-theme-toggle" title="Toggle Theme">
-          <span id="theme-icon"></span>
-          <span class="theme-label">Theme</span>
+        <!-- Appearance Settings Button -->
+        <button id="btn-settings-toggle" class="btn btn-icon btn-ghost" title="Appearance Settings" aria-label="Appearance Settings">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
         </button>
-        <button id="btn-fit" class="btn btn-primary pulse-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+
+        <button id="btn-theme-toggle" class="btn btn-icon btn-ghost" title="Toggle Theme" aria-label="Toggle Theme">
+          <span id="theme-icon"></span>
+          <span class="theme-label" style="display: none;">Theme</span>
+        </button>
+
+        <button id="btn-fit" class="btn btn-primary btn-sm">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
             <polyline points="16 7 22 7 22 13"></polyline>
           </svg>
-          <span>Fit Best Line</span>
+          <span>Fit Line</span>
         </button>
-        <button id="btn-randomize" class="btn btn-secondary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+
+        <button id="btn-randomize" class="btn btn-secondary btn-sm">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="16 3 21 3 21 8"></polyline>
             <line x1="4" y1="20" x2="21" y2="3"></line>
             <polyline points="21 16 21 21 16 21"></polyline>
             <line x1="15" y1="15" x2="21" y2="21"></line>
             <line x1="4" y1="4" x2="9" y2="9"></line>
           </svg>
-          <span>Random Points</span>
+          <span>Randomize</span>
         </button>
-        <button id="btn-clear" class="btn btn-ghost" title="Clear all data points">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+
+        <button id="btn-clear" class="btn btn-ghost btn-sm btn-icon" title="Clear points">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="3 6 5 6 21 6"></polyline>
             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
           </svg>
@@ -101,7 +118,7 @@
               <input type="checkbox" id="chk-ols" checked>
               <span class="slider"></span>
               <span class="toggle-label">
-                <span class="color-dot purple-dashed"></span> Ideal OLS Line
+                <span class="color-dot purple-dashed"></span> OLS Line
               </span>
             </label>
 
@@ -109,18 +126,13 @@
               <input type="checkbox" id="chk-meany">
               <span class="slider"></span>
               <span class="toggle-label">
-                <span class="color-dot gray-dashed"></span> Mean Line (ȳ)
+                <span class="color-dot gray-dashed"></span> Mean (ȳ)
               </span>
             </label>
           </div>
 
           <div class="canvas-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="16" x2="12" y2="12"></line>
-              <line x1="12" y1="8" x2="12.01" y2="8"></line>
-            </svg>
-            <span>Drag line handles • Click canvas to add point • Drag points to move</span>
+            <span>Click canvas to add points • Drag handles to adjust line</span>
           </div>
         </div>
 
@@ -138,8 +150,8 @@
         <!-- Section 1: Line Formula & Equation Controls -->
         <div class="card">
           <div class="card-header">
-            <h3>Linear Function Controls</h3>
-            <span class="badge cyan">y = mx + c</span>
+            <h3>Linear Model</h3>
+            <span class="badge badge-primary">y = mx + c</span>
           </div>
           <div class="card-body">
             <div class="equation-display">
@@ -167,8 +179,8 @@
               <input type="range" id="slider-c" step="0.05" min="-5" max="15" value="0">
             </div>
 
-            <button id="btn-reset-line" class="btn btn-outline btn-full">
-              Reset Line to Diagonal
+            <button id="btn-reset-line" class="btn btn-outline btn-sm btn-block">
+              Reset Line
             </button>
           </div>
         </div>
@@ -176,16 +188,15 @@
         <!-- Section 2: Live Statistics -->
         <div class="card highlight-card">
           <div class="card-header">
-            <h3>Error Metrics & Analytics</h3>
-            <span class="badge amber">Real-Time</span>
+            <h3>Error Metrics</h3>
+            <span class="badge badge-secondary">Live</span>
           </div>
           <div class="card-body">
             <div class="stats-grid">
               <!-- SSE Stat Card -->
               <div class="stat-box primary-stat">
                 <div class="stat-label">
-                  <span>Sum of Squared Errors (SSE)</span>
-                  <span class="info-icon" title="Sum of all squared residual surface areas: Σ(yᵢ - ŷᵢ)²">?</span>
+                  <span>Squared Errors (SSE)</span>
                 </div>
                 <div class="stat-value amber-text" id="stat-sse">0.000</div>
                 <div class="stat-progress-bar">
@@ -196,27 +207,26 @@
               <!-- R-squared Stat -->
               <div class="stat-box">
                 <div class="stat-label">
-                  <span>R² (Coeff of Determination)</span>
-                  <span class="info-icon" title="Proportion of variance explained by linear model: 1 - (SSE / SST)">?</span>
+                  <span>R²</span>
                 </div>
                 <div class="stat-value green-text" id="stat-r2">0.000</div>
               </div>
 
               <!-- MSE Stat -->
               <div class="stat-box">
-                <div class="stat-label">Mean Squared Error (MSE)</div>
+                <div class="stat-label">MSE</div>
                 <div class="stat-value" id="stat-mse">0.000</div>
               </div>
 
               <!-- RMSE Stat -->
               <div class="stat-box">
-                <div class="stat-label">Root Mean Sq Error (RMSE)</div>
+                <div class="stat-label">RMSE</div>
                 <div class="stat-value" id="stat-rmse">0.000</div>
               </div>
 
               <!-- Best Fit Comparison -->
               <div class="stat-box full-width">
-                <div class="stat-label">Calculated Optimal OLS Function</div>
+                <div class="stat-label">Optimal OLS Line</div>
                 <div class="ols-equation" id="ols-equation-display">y = 1.000x + 0.000</div>
               </div>
             </div>
@@ -226,26 +236,26 @@
         <!-- Section 3: Data Presets & Generation -->
         <div class="card">
           <div class="card-header">
-            <h3>Data Point Generator</h3>
+            <h3>Data Presets</h3>
           </div>
           <div class="card-body">
             <div class="preset-buttons">
-              <button class="preset-btn" data-preset="linear">Linear Trend</button>
-              <button class="preset-btn" data-preset="noisy">High Noise</button>
-              <button class="preset-btn" data-preset="outlier">With Outlier</button>
-              <button class="preset-btn" data-preset="horizontal">Flat Line</button>
+              <button class="preset-btn" data-preset="linear">Linear</button>
+              <button class="preset-btn" data-preset="noisy">Noisy</button>
+              <button class="preset-btn" data-preset="outlier">Outlier</button>
+              <button class="preset-btn" data-preset="horizontal">Flat</button>
             </div>
 
             <div class="control-field">
               <div class="field-label">
-                <label for="gen-count">Number of Points: <span id="gen-count-val">15</span></label>
+                <label for="gen-count">Points: <span id="gen-count-val">15</span></label>
               </div>
               <input type="range" id="gen-count" min="3" max="50" value="15">
             </div>
 
             <div class="control-field">
               <div class="field-label">
-                <label for="gen-noise">Noise Level: <span id="gen-noise-val">1.2</span></label>
+                <label for="gen-noise">Noise: <span id="gen-noise-val">1.2</span></label>
               </div>
               <input type="range" id="gen-noise" min="0.1" max="4.0" step="0.1" value="1.2">
             </div>
@@ -255,7 +265,7 @@
         <!-- Section 4: Data Point List Drawer -->
         <div class="card collapsible-card">
           <div class="card-header" id="points-accordion-header">
-            <h3>Point Coordinates (<span id="point-count-badge">0</span>)</h3>
+            <h3>Points (<span id="point-count-badge">0</span>)</h3>
             <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
@@ -268,9 +278,9 @@
                     <th>#</th>
                     <th>X</th>
                     <th>Y</th>
-                    <th>Residual (eᵢ)</th>
-                    <th>Square (eᵢ²)</th>
-                    <th>Action</th>
+                    <th>eᵢ</th>
+                    <th>eᵢ²</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody id="points-table-body">

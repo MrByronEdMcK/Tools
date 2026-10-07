@@ -1,5 +1,5 @@
 """
-MrByronEdMcK Educational Tools Hub - Network Graph Studio Unit Tests
+Educational Tools Hub - Network Graph Studio Unit Tests
 Validates graph theory algorithms (Dijkstra, Prim, Euler, Matrix) and DOM button bindings.
 """
 

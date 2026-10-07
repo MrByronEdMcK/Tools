@@ -1,7 +1,6 @@
 /**
  * Interactive Network Graph Studio - Application Engine
- * ----------------------------------------------------
- * Developed by / for MrByronEd - Mathematics Education Resources
+ * Educational Mathematics Tools - Interactive Graph Studio
  * High-performance SVG Graph Engine with 3-Control-Point Bezier Edge Bending,
  * Element Styling Inspector (Line Style, Thickness, Color for Edges & Nodes),
  * Dual Theme System (Modern Dark & Textbook Monochrome / Print Light),
@@ -17,7 +16,7 @@ const state = {
   zoom: 1.0,
   pan: { x: 0, y: 0 },
   activeSet: {
-    title: "MrByronEd Network Set 1",
+    title: "Network Set 1",
     activeNetworkId: "net_1",
     networks: []
   },

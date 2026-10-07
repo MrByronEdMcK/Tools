@@ -156,7 +156,14 @@
   // Helper: check if dark mode is active
   function isDarkMode() {
     return document.documentElement.getAttribute('data-theme') === 'dark' || 
+           (typeof window.ToolsTheme !== 'undefined' && typeof window.ToolsTheme.isDark === 'function' && window.ToolsTheme.isDark()) ||
            (typeof window.MrByronTheme !== 'undefined' && typeof window.MrByronTheme.isDark === 'function' && window.MrByronTheme.isDark());
+  }
+
+  function getAccentColor() {
+    const raw = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+    if (raw) return raw;
+    return isDarkMode() ? '#e07a57' : '#c05638';
   }
 
   // ==========================================================================
@@ -322,7 +329,7 @@
     ctx.save();
 
     // Fill canvas background
-    ctx.fillStyle = isDark ? '#121826' : '#ffffff';
+    ctx.fillStyle = isDark ? '#191715' : '#f6f3eb';
     ctx.fillRect(0, 0, width, height);
 
     ctx.lineWidth = 1;
@@ -336,8 +343,8 @@
       const p2 = worldToScreen(x, yMax);
 
       ctx.strokeStyle = x === 0 
-        ? (isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(15, 23, 42, 0.45)')
-        : (isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(15, 23, 42, 0.08)');
+        ? (isDark ? 'rgba(243, 239, 230, 0.45)' : 'rgba(43, 37, 32, 0.45)')
+        : (isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(43, 37, 32, 0.08)');
       ctx.beginPath();
       ctx.moveTo(p1.x, p1.y);
       ctx.lineTo(p2.x, p2.y);
@@ -345,7 +352,7 @@
 
       // Axis label X
       if (x % 2 === 0) {
-        ctx.fillStyle = isDark ? '#9ca3af' : '#475569';
+        ctx.fillStyle = isDark ? '#aca294' : '#6e655b';
         ctx.font = '11px "JetBrains Mono", monospace';
         ctx.textAlign = 'center';
         ctx.fillText(x.toString(), p1.x, p1.y + 18);
@@ -357,8 +364,8 @@
       const p2 = worldToScreen(xMax, y);
 
       ctx.strokeStyle = y === 0 
-        ? (isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(15, 23, 42, 0.45)')
-        : (isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(15, 23, 42, 0.08)');
+        ? (isDark ? 'rgba(243, 239, 230, 0.45)' : 'rgba(43, 37, 32, 0.45)')
+        : (isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(43, 37, 32, 0.08)');
       ctx.beginPath();
       ctx.moveTo(p1.x, p1.y);
       ctx.lineTo(p2.x, p2.y);
@@ -366,7 +373,7 @@
 
       // Axis label Y
       if (y % 2 === 0) {
-        ctx.fillStyle = isDark ? '#9ca3af' : '#475569';
+        ctx.fillStyle = isDark ? '#aca294' : '#6e655b';
         ctx.font = '11px "JetBrains Mono", monospace';
         ctx.textAlign = 'right';
         ctx.fillText(y.toString(), p1.x - 10, p1.y + 4);
@@ -376,7 +383,7 @@
     // Outer Bounding Box
     const origin = worldToScreen(xMin, yMin);
     const topCorner = worldToScreen(xMax, yMax);
-    ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(15, 23, 42, 0.18)';
+    ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(43, 37, 32, 0.15)';
     ctx.strokeRect(origin.x, topCorner.y, topCorner.x - origin.x, origin.y - topCorner.y);
 
     ctx.restore();
@@ -389,7 +396,7 @@
     const p2 = worldToScreen(state.world.xMax, meanY);
 
     ctx.save();
-    ctx.strokeStyle = isDark ? 'rgba(156, 163, 175, 0.65)' : 'rgba(100, 116, 139, 0.75)';
+    ctx.strokeStyle = isDark ? 'rgba(172, 162, 148, 0.7)' : 'rgba(110, 101, 91, 0.75)';
     ctx.lineWidth = 1.5;
     ctx.setLineDash([5, 5]);
     ctx.beginPath();
@@ -397,8 +404,8 @@
     ctx.lineTo(p2.x, p2.y);
     ctx.stroke();
 
-    ctx.fillStyle = isDark ? 'rgba(156, 163, 175, 0.85)' : 'rgba(51, 65, 85, 0.9)';
-    ctx.font = '11px "Outfit", sans-serif';
+    ctx.fillStyle = isDark ? '#aca294' : '#6e655b';
+    ctx.font = '11px "Plus Jakarta Sans", sans-serif';
     ctx.fillText(`ȳ = ${meanY.toFixed(2)}`, p2.x - 45, p2.y - 6);
     ctx.restore();
   }
@@ -410,7 +417,7 @@
     const p2 = worldToScreen(state.world.xMax, m * state.world.xMax + c);
 
     ctx.save();
-    ctx.strokeStyle = isDark ? 'rgba(168, 85, 247, 0.85)' : 'rgba(147, 51, 234, 0.9)';
+    ctx.strokeStyle = isDark ? 'rgba(168, 113, 184, 0.9)' : 'rgba(125, 78, 141, 0.9)';
     ctx.lineWidth = 2.5;
     ctx.setLineDash([6, 6]);
     ctx.beginPath();
@@ -435,10 +442,10 @@
       const pLine = worldToScreen(pt.x, yPred);
 
       // Height of residual in screen pixels
-      const hPx = pLine.y - pData.y; // Positive if point is above line in canvas coords
+      const hPx = pLine.y - pData.y;
       const absHPx = Math.abs(hPx);
 
-      if (absHPx < 0.5) continue; // Skip near-zero squares
+      if (absHPx < 0.5) continue;
 
       // Determine square position
       const topY = Math.min(pData.y, pLine.y);
@@ -450,10 +457,10 @@
       }
 
       // Draw Translucent Residual Square
-      ctx.fillStyle = isDark ? 'rgba(251, 191, 36, 0.16)' : 'rgba(217, 119, 6, 0.12)';
+      ctx.fillStyle = isDark ? 'rgba(217, 148, 54, 0.18)' : 'rgba(184, 115, 32, 0.14)';
       ctx.fillRect(leftX, topY, absHPx, absHPx);
 
-      ctx.strokeStyle = isDark ? 'rgba(251, 191, 36, 0.5)' : 'rgba(217, 119, 6, 0.45)';
+      ctx.strokeStyle = isDark ? 'rgba(217, 148, 54, 0.6)' : 'rgba(184, 115, 32, 0.55)';
       ctx.lineWidth = 1;
       ctx.strokeRect(leftX, topY, absHPx, absHPx);
     }
@@ -465,7 +472,7 @@
   function drawResidualLines(m, c) {
     const isDark = isDarkMode();
     ctx.save();
-    ctx.strokeStyle = isDark ? '#fbbf24' : '#d97706';
+    ctx.strokeStyle = isDark ? '#d99436' : '#b87320';
     ctx.lineWidth = 1.8;
     ctx.setLineDash([3, 3]);
 
@@ -488,15 +495,16 @@
   // Draw Manual Line & Draggable Endpoint Handles
   function drawManualLine(m, c) {
     const isDark = isDarkMode();
+    const accent = getAccentColor();
     const p1 = worldToScreen(state.manualLine.x1, state.manualLine.y1);
     const p2 = worldToScreen(state.manualLine.x2, state.manualLine.y2);
 
     ctx.save();
 
     // Line Shadow/Glow
-    ctx.shadowColor = isDark ? 'rgba(56, 189, 248, 0.6)' : 'rgba(2, 132, 199, 0.25)';
-    ctx.shadowBlur = isDark ? 12 : 4;
-    ctx.strokeStyle = isDark ? '#38bdf8' : '#0284c7';
+    ctx.shadowColor = isDark ? 'rgba(224, 122, 87, 0.45)' : 'rgba(192, 86, 56, 0.25)';
+    ctx.shadowBlur = isDark ? 10 : 4;
+    ctx.strokeStyle = accent;
     ctx.lineWidth = 3.5;
 
     ctx.beginPath();
@@ -504,7 +512,7 @@
     ctx.lineTo(p2.x, p2.y);
     ctx.stroke();
 
-    ctx.shadowBlur = 0; // Reset shadow for handles
+    ctx.shadowBlur = 0;
 
     // Draw Control Handles (P1 & P2)
     drawHandle(p1.x, p1.y, state.hover.target === 'handle1');
@@ -515,20 +523,21 @@
 
   function drawHandle(sx, sy, isHovered) {
     const isDark = isDarkMode();
+    const accent = getAccentColor();
     ctx.save();
     const radius = isHovered ? 9 : 7;
 
     // Outer Halo
     ctx.fillStyle = isHovered 
-      ? (isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(2, 132, 199, 0.25)') 
-      : (isDark ? 'rgba(56, 189, 248, 0.2)' : 'rgba(2, 132, 199, 0.15)');
+      ? (isDark ? 'rgba(224, 122, 87, 0.4)' : 'rgba(192, 86, 56, 0.25)') 
+      : (isDark ? 'rgba(224, 122, 87, 0.2)' : 'rgba(192, 86, 56, 0.15)');
     ctx.beginPath();
     ctx.arc(sx, sy, radius + 5, 0, Math.PI * 2);
     ctx.fill();
 
     // Solid Handle Core
     ctx.fillStyle = '#ffffff';
-    ctx.strokeStyle = isDark ? '#38bdf8' : '#0284c7';
+    ctx.strokeStyle = accent;
     ctx.lineWidth = 2.5;
     ctx.beginPath();
     ctx.arc(sx, sy, radius, 0, Math.PI * 2);
@@ -551,10 +560,10 @@
       const radius = isHovered ? 8 : 6;
 
       // Glow halo
-      ctx.shadowColor = isDark ? 'rgba(244, 63, 94, 0.7)' : 'rgba(225, 29, 72, 0.25)';
-      ctx.shadowBlur = isHovered ? (isDark ? 12 : 6) : (isDark ? 6 : 2);
+      ctx.shadowColor = isDark ? 'rgba(217, 88, 88, 0.6)' : 'rgba(184, 58, 58, 0.25)';
+      ctx.shadowBlur = isHovered ? (isDark ? 10 : 5) : (isDark ? 5 : 2);
 
-      ctx.fillStyle = isDark ? '#f43f5e' : '#e11d48';
+      ctx.fillStyle = isDark ? '#d95858' : '#b83a3a';
       ctx.beginPath();
       ctx.arc(pScreen.x, pScreen.y, radius, 0, Math.PI * 2);
       ctx.fill();

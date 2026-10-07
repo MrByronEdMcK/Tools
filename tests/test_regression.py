@@ -1,5 +1,5 @@
 """
-MrByronEdMcK Educational Tools Hub - Least Squares Regression Studio Unit Tests
+Educational Tools Hub - Least Squares Regression Studio Unit Tests
 Validates statistical formulas (OLS, SSE, MSE, RMSE, R², Pearson r) and DOM button bindings.
 """
 

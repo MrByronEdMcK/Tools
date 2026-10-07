@@ -1,5 +1,5 @@
 /**
- * MrByronEdMcK Educational Tools Hub - Homepage Controller
+ * Tools Hub - Homepage Controller
  */
 
 (function () {
@@ -22,11 +22,12 @@
 
   async function loadTools() {
     // 1. Check offline fallback
-    if (window.MR_BYRON_TOOLS && Array.isArray(window.MR_BYRON_TOOLS)) {
-      allTools = window.MR_BYRON_TOOLS;
+    const fallback = window.TOOLS_DATA || window.MR_BYRON_TOOLS;
+    if (fallback && Array.isArray(fallback)) {
+      allTools = fallback;
     }
 
-    // 2. Try fetching tools.json (for dynamic server/GitHub Pages updates)
+    // 2. Fetch tools.json for dynamic updates
     try {
       const res = await fetch('./tools.json');
       if (res.ok) {
@@ -81,7 +82,7 @@
     const filtered = filterTools();
 
     if (toolsCounter) {
-      toolsCounter.innerHTML = `Showing <strong>${filtered.length}</strong> of ${allTools.length} educational tools`;
+      toolsCounter.innerHTML = `Showing <strong>${filtered.length}</strong> of ${allTools.length} tools`;
     }
 
     if (filtered.length === 0) {
@@ -101,7 +102,7 @@
         <article class="tool-card" data-id="${escapeHtml(tool.id)}">
           <div class="tool-card-top">
             <div class="tool-card-icon">
-              ${tool.icon || '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>'}
+              ${tool.icon || '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>'}
             </div>
             <div class="tool-card-badges">
               <span class="badge badge-primary">${escapeHtml(tool.category)}</span>
@@ -120,7 +121,7 @@
 
           <div class="tool-card-footer">
             <a href="${escapeHtml(tool.path)}" class="btn btn-primary btn-launch-tool">
-              <span>Launch Studio</span>
+              <span>Launch Tool</span>
               ${ARROW_ICON}
             </a>
           </div>
@@ -192,15 +193,5 @@
   // Initialize on load
   document.addEventListener('DOMContentLoaded', () => {
     loadTools();
-    console.info(
-      '%c MrByronEdMcK Educational Tools Hub %c\n' +
-      'To integrate a new educational tool:\n' +
-      ' 1. Create a folder in Tools/<YourToolName>/ with index.html, styles.css, and app.js\n' +
-      ' 2. Link ../../shared/css/theme.css and ../../shared/js/theme.js in the head\n' +
-      ' 3. Register the metadata in tools.json & shared/js/tools-data.js\n' +
-      'Run automated tests anytime at: /tests/index.html or via `python tests/run_tests.py`',
-      'background: #4f46e5; color: #fff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
-      'color: inherit;'
-    );
   });
 })();

@@ -1,5 +1,5 @@
 /**
- * MrByronEdMcK - In-Browser Test Suite & Bug Checker Engine
+ * Educational Tools Hub - In-Browser Test Suite & Bug Checker Engine
  */
 
 (function () {
@@ -73,11 +73,11 @@
         },
         {
           name: 'Author & Brand Verification',
-          desc: 'Verify brand name MrByronEdMcK is properly formatted in header and document title.',
+          desc: 'Verify personal author branding MrByronEdMcK is removed from title and header.',
           fn: async function () {
-            assert(document.title.includes('MrByronEdMcK'), 'Document title does not contain MrByronEdMcK');
+            assert(!document.title.includes('MrByronEdMcK'), 'Document title should not contain MrByronEdMcK');
             const headerBrand = document.querySelector('.mrbyron-tool-info');
-            assert(headerBrand && headerBrand.textContent.includes('MrByronEdMcK'), 'Tool header does not contain MrByronEdMcK');
+            assert(headerBrand && !headerBrand.textContent.includes('MrByronEdMcK'), 'Tool header should not contain MrByronEdMcK');
           }
         }
       ]

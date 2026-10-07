@@ -1,115 +1,294 @@
 /* ==========================================================================
-   MrByronEdMcK Educational Tools Hub - Shared Design System & Theme Engine
+   Tools Hub - Shared Design System & Theme Engine
+   Warm, Natural Editorial Aesthetic (Aligned with StudyCards design system)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* Typography */
-  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* ------------------------------------------------------------------------
+     Color Palette (Light Mode: Warm Oat / Parchment Beige & Natural Clay)
+     ------------------------------------------------------------------------ */
+  --bg-primary: #f6f3eb;        /* Warm oatmeal paper canvas */
+  --bg-surface: #fdfbf7;        /* Clean warm ivory card surface */
+  --bg-surface-hover: #eee8dc;  /* Gentle warm hover */
+  --bg-card: #fdfbf7;           /* Card background */
+  --bg-subtle: #eee7db;         /* Subtle warm container/tag backdrop */
 
-  /* Layout & Sizing */
+  --border-color: #dfd7c8;      /* Soft natural linen border */
+  --border-subtle: #e8e2d5;
+  --border-focus: #c05638;      /* Terracotta accent focus ring */
+
+  --text-main: #2b2520;         /* Deep espresso / charcoal ink */
+  --text-muted: #6e655b;        /* Warm stone taupe */
+  --text-light: #9c9284;        /* Soft warm stone */
+  --text-inverted: #ffffff;
+
+  /* Earthy Accents */
+  --primary: #c05638;           /* Warm terracotta / rust clay */
+  --primary-hover: #a7452a;     /* Deeper baked clay */
+  --primary-light: #faeee7;     /* Soft terracotta wash */
+  --primary-text: #963a20;      /* Rich terracotta text */
+
+  --success: #38734e;           /* Garden sage / deep olive */
+  --success-hover: #2d5e3f;
+  --success-light: #eaf3ed;
+  --success-text: #225134;
+
+  --warning: #b87320;           /* Honey amber / warm ochre */
+  --warning-hover: #9c5f14;
+  --warning-light: #fdf3e5;
+  --warning-text: #7b4507;
+
+  --danger: #b83a3a;            /* Soft brick crimson */
+  --danger-hover: #9c2d2d;
+  --danger-light: #fbeeed;
+  --danger-text: #7c1f1f;
+
+  --info: #3d6884;              /* Slate river blue */
+  --info-light: #ecf3f8;
+  --info-text: #234c68;
+
+  /* Ambient Natural Shadows */
+  --shadow-sm: 0 1px 3px rgba(43, 37, 32, 0.05);
+  --shadow-md: 0 4px 10px -2px rgba(43, 37, 32, 0.07), 0 2px 4px -2px rgba(43, 37, 32, 0.04);
+  --shadow-lg: 0 12px 24px -4px rgba(43, 37, 32, 0.08), 0 4px 8px -2px rgba(43, 37, 32, 0.03);
+  --shadow-xl: 0 20px 32px -6px rgba(43, 37, 32, 0.1);
+
+  /* Radii - Natural, comfortable curves */
   --radius-sm: 6px;
   --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 22px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
   --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: 'Lora', Georgia, serif;
+  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Layout */
   --header-height: 64px;
 
   /* Transitions */
-  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
   --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* ----------------------------------------------------
-     DEFAULT LIGHT THEME (Clean, High-Contrast, Classroom & Textbook Ready)
-     ---------------------------------------------------- */
-  --bg-body: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-surface-subtle: #f1f5f9;
-  --bg-card: #ffffff;
-  --bg-card-hover: #ffffff;
-  --bg-card-border-hover: #cbd5e1;
+  /* Backward Compatibility Aliases for legacy tools */
+  --bg-body: var(--bg-primary);
+  --bg-surface-subtle: var(--bg-subtle);
+  --bg-dark: var(--bg-primary);
+  --border-main: var(--border-color);
+  --border-strong: var(--border-color);
+  --text-dim: var(--text-light);
+  --accent-primary: var(--primary);
+  --accent-primary-hover: var(--primary-hover);
+  --accent-primary-subtle: var(--primary-light);
+  --accent-primary-glow: rgba(192, 86, 56, 0.18);
+  --accent-secondary: var(--info);
+  --accent-secondary-subtle: var(--info-light);
+  --accent-success: var(--success);
+  --accent-warning: var(--warning);
+  --accent-danger: var(--danger);
 
-  --border-subtle: #f1f5f9;
-  --border-main: #e2e8f0;
-  --border-strong: #cbd5e1;
-
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --text-dim: #64748b;
-  --text-inverted: #ffffff;
-
-  --accent-primary: #4f46e5;
-  --accent-primary-hover: #4338ca;
-  --accent-primary-subtle: #eef2ff;
-  --accent-primary-glow: rgba(79, 70, 229, 0.15);
-
-  --accent-secondary: #0284c7;
-  --accent-secondary-subtle: #e0f2fe;
-
-  --accent-success: #16a34a;
-  --accent-success-subtle: #dcfce7;
-  
-  --accent-warning: #d97706;
-  --accent-warning-subtle: #fef3c7;
-
-  --accent-danger: #dc2626;
-  --accent-danger-subtle: #fee2e2;
-
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 20px -3px rgba(15, 23, 42, 0.07), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
-  --shadow-card-hover: 0 20px 30px -8px rgba(79, 70, 229, 0.12), 0 8px 12px -4px rgba(15, 23, 42, 0.06);
-
-  --grid-line-color: rgba(15, 23, 42, 0.04);
+  --grid-line-color: rgba(43, 37, 32, 0.05);
 }
 
-/* ----------------------------------------------------
-   DARK THEME OVERRIDES
-   ---------------------------------------------------- */
+/* ------------------------------------------------------------------------
+   Dark Mode Tokens (Warm Night Study / Dark Walnut & Roasted Espresso)
+   ------------------------------------------------------------------------ */
 [data-theme="dark"],
 body.theme-dark {
-  --bg-body: #0b0f17;
-  --bg-surface: #111827;
-  --bg-surface-subtle: #1a2234;
-  --bg-card: #141c2e;
-  --bg-card-hover: #19243a;
-  --bg-card-border-hover: #334155;
+  --bg-primary: #191715;        /* Deep roasted coffee bean */
+  --bg-surface: #23201c;        /* Warm dark wood card */
+  --bg-surface-hover: #2c2823;
+  --bg-card: #23201c;
+  --bg-subtle: #2b2722;
 
-  --border-subtle: #1e293b;
-  --border-main: #2a374d;
-  --border-strong: #3b4d6a;
+  --border-color: #38322b;      /* Muted espresso timber border */
+  --border-subtle: #2e2923;
+  --border-focus: #e07a57;
 
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
-  --text-inverted: #0f172a;
+  --text-main: #f3efe6;         /* Warm ivory text */
+  --text-muted: #aca294;        /* Soft warm taupe */
+  --text-light: #7a7164;
+  --text-inverted: #191715;
 
-  --accent-primary: #6366f1;
-  --accent-primary-hover: #818cf8;
-  --accent-primary-subtle: rgba(99, 102, 241, 0.15);
-  --accent-primary-glow: rgba(99, 102, 241, 0.25);
+  --primary: #e07a57;           /* Warm peach terracotta */
+  --primary-hover: #eb8d6b;
+  --primary-light: #39241b;
+  --primary-text: #f7c2b2;
 
-  --accent-secondary: #38bdf8;
-  --accent-secondary-subtle: rgba(56, 189, 248, 0.15);
+  --success: #52996d;
+  --success-hover: #63aa7e;
+  --success-light: #1f3024;
+  --success-text: #a0dcba;
 
-  --accent-success: #22c55e;
-  --accent-success-subtle: rgba(34, 197, 94, 0.15);
+  --warning: #d99436;
+  --warning-hover: #e5a448;
+  --warning-light: #3a2811;
+  --warning-text: #fad698;
 
-  --accent-warning: #f59e0b;
-  --accent-warning-subtle: rgba(245, 158, 11, 0.15);
+  --danger: #d95858;
+  --danger-hover: #e56b6b;
+  --danger-light: #381919;
+  --danger-text: #fca5a5;
 
-  --accent-danger: #ef4444;
-  --accent-danger-subtle: rgba(239, 68, 68, 0.15);
+  --info: #5d91b4;
+  --info-light: #1b2b38;
+  --info-text: #bcd9ec;
 
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.6);
-  --shadow-card-hover: 0 20px 35px -8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(99, 102, 241, 0.25);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.55);
+  --shadow-xl: 0 20px 36px rgba(0, 0, 0, 0.65);
 
-  --grid-line-color: rgba(255, 255, 255, 0.03);
+  /* Legacy aliases for dark mode */
+  --bg-body: var(--bg-primary);
+  --bg-surface-subtle: var(--bg-subtle);
+  --bg-dark: var(--bg-primary);
+  --border-main: var(--border-color);
+  --border-strong: var(--border-color);
+  --text-dim: var(--text-light);
+  --accent-primary: var(--primary);
+  --accent-primary-hover: var(--primary-hover);
+  --accent-primary-subtle: var(--primary-light);
+  --accent-primary-glow: rgba(224, 122, 87, 0.25);
+  --accent-secondary: var(--info);
+  --accent-secondary-subtle: var(--info-light);
+  --accent-success: var(--success);
+  --accent-warning: var(--warning);
+  --accent-danger: var(--danger);
+
+  --grid-line-color: rgba(255, 255, 255, 0.04);
+}
+
+/* ==========================================================================
+   User Selectable Accent Themes (Orange, Green, Blue, Pink, Yellow, Red, Purple)
+   ========================================================================== */
+
+/* 1. Orange / Terracotta (Default) */
+[data-accent="orange"],
+:root:not([data-accent]) {
+  --primary: #c05638;
+  --primary-hover: #a7452a;
+  --primary-light: #faeee7;
+  --primary-text: #963a20;
+  --border-focus: #c05638;
+}
+[data-theme="dark"][data-accent="orange"],
+[data-theme="dark"]:not([data-accent]),
+body.theme-dark[data-accent="orange"],
+body.theme-dark:not([data-accent]) {
+  --primary: #e07a57;
+  --primary-hover: #eb8d6b;
+  --primary-light: #39241b;
+  --primary-text: #f7c2b2;
+  --border-focus: #e07a57;
+}
+
+/* 2. Green / Sage & Forest */
+[data-accent="green"] {
+  --primary: #38734e;
+  --primary-hover: #2d5e3f;
+  --primary-light: #eaf3ed;
+  --primary-text: #225134;
+  --border-focus: #38734e;
+}
+[data-theme="dark"][data-accent="green"],
+body.theme-dark[data-accent="green"] {
+  --primary: #52996d;
+  --primary-hover: #63aa7e;
+  --primary-light: #1f3024;
+  --primary-text: #a0dcba;
+  --border-focus: #52996d;
+}
+
+/* 3. Blue / River Slate & Denim */
+[data-accent="blue"] {
+  --primary: #366482;
+  --primary-hover: #2b5069;
+  --primary-light: #e9f1f6;
+  --primary-text: #1e445d;
+  --border-focus: #366482;
+}
+[data-theme="dark"][data-accent="blue"],
+body.theme-dark[data-accent="blue"] {
+  --primary: #548bb0;
+  --primary-hover: #659cc2;
+  --primary-light: #1c2a35;
+  --primary-text: #a4cbdf;
+  --border-focus: #548bb0;
+}
+
+/* 4. Pink / Dusty Rose & Blush */
+[data-accent="pink"] {
+  --primary: #b84e72;
+  --primary-hover: #9e3f60;
+  --primary-light: #faeef3;
+  --primary-text: #8e3152;
+  --border-focus: #b84e72;
+}
+[data-theme="dark"][data-accent="pink"],
+body.theme-dark[data-accent="pink"] {
+  --primary: #d96b92;
+  --primary-hover: #e47d9f;
+  --primary-light: #381d28;
+  --primary-text: #f8bad0;
+  --border-focus: #d96b92;
+}
+
+/* 5. Yellow / Golden Amber & Honey Ochre */
+[data-accent="yellow"] {
+  --primary: #b87320;
+  --primary-hover: #9c5f14;
+  --primary-light: #fdf3e5;
+  --primary-text: #7b4507;
+  --border-focus: #b87320;
+}
+[data-theme="dark"][data-accent="yellow"],
+body.theme-dark[data-accent="yellow"] {
+  --primary: #d99436;
+  --primary-hover: #e5a448;
+  --primary-light: #3a2811;
+  --primary-text: #fad698;
+  --border-focus: #d99436;
+}
+
+/* 6. Red / Crimson Brick */
+[data-accent="red"] {
+  --primary: #b83a3a;
+  --primary-hover: #9c2d2d;
+  --primary-light: #fbeeed;
+  --primary-text: #7c1f1f;
+  --border-focus: #b83a3a;
+}
+[data-theme="dark"][data-accent="red"],
+body.theme-dark[data-accent="red"] {
+  --primary: #d95858;
+  --primary-hover: #e56b6b;
+  --primary-light: #381919;
+  --primary-text: #fca5a5;
+  --border-focus: #d95858;
+}
+
+/* 7. Purple / Warm Plum & Violet */
+[data-accent="purple"] {
+  --primary: #7d4e8d;
+  --primary-hover: #693f77;
+  --primary-light: #f6eefa;
+  --primary-text: #5b3269;
+  --border-focus: #7d4e8d;
+}
+[data-theme="dark"][data-accent="purple"],
+body.theme-dark[data-accent="purple"] {
+  --primary: #a871b8;
+  --primary-hover: #b882c7;
+  --primary-light: #311f38;
+  --primary-text: #e2c2eb;
+  --border-focus: #a871b8;
 }
 
 /* ==========================================================================
@@ -125,279 +304,69 @@ body.theme-dark {
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-body);
+  background-color: var(--bg-primary);
   color: var(--text-main);
-  line-height: 1.5;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1), 
-              color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   min-height: 100vh;
+  transition: background-color var(--transition-normal), 
+              color var(--transition-normal),
+              border-color var(--transition-normal);
 }
 
-/* Universal Smooth Theme Transitions for components */
-body,
-header,
-footer,
-nav,
-aside,
-section,
-.navbar,
-.app-header,
-.mrbyron-tool-header,
-.card,
-.tool-card,
-.stat-box,
-.filter-btn,
-.search-wrapper,
-.search-input,
-.btn,
-.btn-theme-toggle,
-.badge,
-.pill,
-.canvas-section,
-.canvas-overlay-bar,
-.sidebar,
-.preset-btn,
-.points-table th,
-.points-table td,
-.toggle-switch .slider,
-.test-summary-card,
-.test-controls-card,
-.suite-card,
-.test-row,
-.metric-box {
-  transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-              color 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Subtle background pattern */
+/* Subtle background grid pattern */
 .bg-grid-pattern {
   background-image: 
     linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background-size: 28px 28px;
 }
 
-/* Links */
 a {
-  color: var(--accent-primary);
+  color: var(--primary);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 a:hover {
-  color: var(--accent-primary-hover);
+  color: var(--primary-hover);
 }
 
-/* ==========================================================================
-   Shared Component Styles (Buttons, Badges, Tags, Inputs)
-   ========================================================================== */
-
-/* Button System */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 8px 16px;
-  border-radius: var(--radius-md);
-  border: 1px solid transparent;
-  cursor: pointer;
-  user-select: none;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: all var(--transition-fast);
+img, svg, canvas {
+  max-width: 100%;
 }
 
-.btn:active {
-  transform: scale(0.98);
+input, select, textarea, button {
+  font-family: inherit;
+  box-sizing: border-box;
 }
 
-.btn-primary {
-  background-color: var(--accent-primary);
-  color: #ffffff;
-  box-shadow: 0 2px 8px var(--accent-primary-glow);
+/* Utility Animations */
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
 }
 
-.btn-primary:hover {
-  background-color: var(--accent-primary-hover);
-  color: #ffffff;
-  box-shadow: 0 4px 14px var(--accent-primary-glow);
-  transform: translateY(-1px);
+.animate-scale-up {
+  animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.btn-secondary {
-  background-color: var(--bg-surface-subtle);
-  color: var(--text-main);
-  border-color: var(--border-main);
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.btn-secondary:hover {
-  background-color: var(--border-main);
-  color: var(--text-main);
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-.btn-ghost {
-  background-color: transparent;
-  color: var(--text-muted);
-}
-
-.btn-ghost:hover {
-  background-color: var(--bg-surface-subtle);
-  color: var(--text-main);
-}
-
-.btn-sm {
-  font-size: 0.8rem;
-  padding: 5px 10px;
-  border-radius: var(--radius-sm);
-}
-
-.btn-lg {
-  font-size: 1rem;
-  padding: 12px 24px;
-  border-radius: var(--radius-lg);
-}
-
-/* Icon Buttons */
-.btn-icon {
-  width: 38px;
-  height: 38px;
-  padding: 0;
-  border-radius: var(--radius-md);
-  background-color: var(--bg-surface-subtle);
-  border: 1px solid var(--border-main);
-  color: var(--text-muted);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.btn-icon:hover {
-  background-color: var(--bg-surface);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Theme Switcher Button */
-.btn-theme-toggle {
-  position: relative;
-  overflow: hidden;
-  background-color: var(--bg-surface-subtle);
-  border: 1px solid var(--border-main);
-  color: var(--text-main);
-  border-radius: var(--radius-full);
-  padding: 6px 12px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.btn-theme-toggle:hover {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  background-color: var(--bg-surface);
-}
-
-.btn-theme-toggle svg {
-  transition: transform var(--transition-smooth);
-}
-
-/* Badges & Tags */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-  border: 1px solid transparent;
-}
-
-.badge-primary {
-  background-color: var(--accent-primary-subtle);
-  color: var(--accent-primary);
-  border-color: rgba(99, 102, 241, 0.2);
-}
-
-.badge-secondary {
-  background-color: var(--accent-secondary-subtle);
-  color: var(--accent-secondary);
-  border-color: rgba(2, 132, 199, 0.2);
-}
-
-.badge-success {
-  background-color: var(--accent-success-subtle);
-  color: var(--accent-success);
-  border-color: rgba(22, 163, 74, 0.2);
-}
-
-.badge-warning {
-  background-color: var(--accent-warning-subtle);
-  color: var(--accent-warning);
-  border-color: rgba(217, 119, 6, 0.2);
-}
-
-.tag {
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
-  background-color: var(--bg-surface-subtle);
-  border: 1px solid var(--border-main);
-  color: var(--text-muted);
-  transition: all var(--transition-fast);
-}
-
-.tag:hover {
-  border-color: var(--accent-primary);
-  color: var(--text-main);
-}
-
-/* Inputs & Search Controls */
-.input-control {
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-main);
-  border-radius: var(--radius-md);
-  color: var(--text-main);
-  padding: 10px 14px;
-  outline: none;
-  transition: all var(--transition-fast);
-  width: 100%;
-}
-
-.input-control:focus {
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px var(--accent-primary-glow);
-}
-
-.input-control::placeholder {
-  color: var(--text-dim);
+.hidden {
+  display: none !important;
 }

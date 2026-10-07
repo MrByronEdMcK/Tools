@@ -1,122 +1,308 @@
 /* ==========================================================================
-   MrByronEdMcK Educational Tools Hub - Unified Tool Header & Navigation
+   Tools Hub - Unified Navigation Header
+   Harmonized with FlashCards navbar layout and responsive multi-device rules
    ========================================================================== */
 
-.mrbyron-tool-header,
-.app-header {
-  height: var(--header-height, 62px);
+.app-navbar,
+.app-header,
+.mrbyron-tool-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height, 64px);
   background-color: var(--bg-surface);
-  border-bottom: 1px solid var(--border-main);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
   padding: 0 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  z-index: 100;
-  box-shadow: var(--shadow-sm);
-  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+  width: 100%;
 }
 
-.mrbyron-nav-left {
+.nav-container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
 }
 
+/* Navigation Left Area */
+.nav-left,
+.mrbyron-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+/* Return to Hub Button */
+.btn-back-hub,
 .mrbyron-back-hub {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.45rem;
+  font-family: var(--font-sans);
   font-size: 0.84rem;
   font-weight: 600;
   color: var(--text-muted);
-  background-color: var(--bg-surface-subtle);
-  border: 1px solid var(--border-main);
-  padding: 6px 12px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.8rem;
   border-radius: var(--radius-full);
   text-decoration: none;
   transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
+.btn-back-hub:hover,
 .mrbyron-back-hub:hover {
-  color: var(--accent-primary);
-  border-color: var(--accent-primary);
-  background-color: var(--bg-surface);
+  color: var(--primary);
+  border-color: var(--primary);
+  background-color: var(--primary-light);
   transform: translateX(-2px);
 }
 
+.btn-back-hub svg,
 .mrbyron-back-hub svg {
   transition: transform var(--transition-fast);
-  stroke-width: 2.2;
 }
 
+.btn-back-hub:hover svg,
 .mrbyron-back-hub:hover svg {
   transform: translateX(-2px);
 }
 
+.nav-divider,
 .mrbyron-divider {
   width: 1px;
-  height: 24px;
-  background-color: var(--border-main);
+  height: 22px;
+  background-color: var(--border-color);
 }
 
+/* Brand Identity */
+.nav-brand,
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.65rem;
+  text-decoration: none;
+  user-select: none;
+  cursor: pointer;
 }
 
 .brand-icon {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  background-color: var(--primary);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
-  box-shadow: 0 3px 10px var(--accent-primary-glow);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   flex-shrink: 0;
+  transition: background-color var(--transition-normal);
 }
 
-.brand-icon svg {
-  stroke-width: 2.2;
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  line-height: 1.15;
 }
 
+.brand-accent {
+  color: var(--primary);
+}
+
+.tool-info-header,
 .mrbyron-tool-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.65rem;
 }
 
-.mrbyron-tool-info h1 {
-  font-size: 1.05rem;
+.tool-info-header h1,
+.mrbyron-tool-info h1,
+.brand-title h1 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-main);
   margin: 0;
   letter-spacing: -0.01em;
 }
 
+.tool-subtitle,
+.sub-tag,
+.subtitle {
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Navigation Actions Right Area */
+.nav-actions,
 .mrbyron-nav-right,
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.65rem;
+  flex-shrink: 0;
 }
 
-/* Tool Navigation Responsive */
-@media (max-width: 768px) {
-  .mrbyron-tool-header,
-  .app-header {
+/* Theme Toggle Button */
+.btn-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-theme-toggle:hover {
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+  border-color: var(--text-muted);
+}
+
+.btn-theme-toggle svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* Settings Button */
+.btn-settings {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-settings:hover {
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+  border-color: var(--primary);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Layout Breakpoints for Header
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .app-navbar,
+  .app-header,
+  .mrbyron-tool-header {
     height: auto;
-    padding: 0.5rem 0.75rem;
-    flex-wrap: wrap;
-    gap: 8px;
+    min-height: 58px;
+    padding: 0.5rem 1rem;
   }
-  .mrbyron-tool-info h1 {
-    font-size: 0.95rem;
+
+  .nav-container {
+    gap: 0.5rem;
   }
+
+  .brand-name {
+    font-size: 1.1rem;
+  }
+
+  .tool-subtitle,
+  .sub-tag,
+  .subtitle {
+    display: none;
+  }
+
+  .btn-theme-toggle .theme-label {
+    display: none;
+  }
+
+  .btn-theme-toggle {
+    padding: 0.4rem;
+    width: 34px;
+    height: 34px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 680px) {
+  .app-navbar,
+  .app-header,
+  .mrbyron-tool-header {
+    padding: 0.4rem 0.75rem;
+  }
+
+  .btn-back-hub span.hub-text,
   .mrbyron-back-hub span.hub-text {
     display: none;
+  }
+
+  .btn-back-hub,
+  .mrbyron-back-hub {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    flex-shrink: 0;
+  }
+
+  .brand-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .brand-name {
+    font-size: 1rem;
+  }
+
+  .tool-info-header h1,
+  .mrbyron-tool-info h1,
+  .brand-title h1 {
+    font-size: 0.95rem;
+  }
+
+  .nav-actions,
+  .mrbyron-nav-right,
+  .header-actions {
+    gap: 0.35rem;
+  }
+
+  .nav-actions .btn-sm .btn-text,
+  .mrbyron-nav-right .btn-sm .btn-text,
+  .header-actions .btn-sm .btn-text,
+  .header-actions .btn-label-text {
+    display: none;
+  }
+
+  .nav-actions .btn-sm,
+  .mrbyron-nav-right .btn-sm,
+  .header-actions .btn-sm {
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    justify-content: center;
   }
 }

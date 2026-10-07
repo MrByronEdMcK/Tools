@@ -1,5 +1,5 @@
 """
-MrByronEdMcK Educational Tools Hub - Hub & Integrity Tests
+Educational Tools Hub - Hub & Integrity Tests
 Validates file structure, tools.json schema, asset link resolution, and branding consistency.
 """
 
@@ -88,7 +88,7 @@ class TestHubIntegrity(unittest.TestCase):
                 )
 
     def test_branding_consistency(self):
-        """Verify that the branding MrByronEdMcK is used consistently across HTML documents."""
+        """Verify that personal author branding MrByronEdMcK is removed from HTML titles and headers."""
         html_files = [
             'index.html',
             os.path.join('Tools', 'Networks', 'index.html'),
@@ -99,11 +99,21 @@ class TestHubIntegrity(unittest.TestCase):
             html_path = os.path.join(BASE_DIR, rel_html)
             with open(html_path, 'r', encoding='utf-8') as f:
                 content = f.read()
-            self.assertIn(
+            title_match = re.search(r'<title>(.*?)</title>', content, re.IGNORECASE)
+            self.assertTrue(title_match, f"Missing title tag in {rel_html}")
+            self.assertNotIn(
                 'MrByronEdMcK',
-                content,
-                f"File {rel_html} does not contain expected author/brand 'MrByronEdMcK'"
+                title_match.group(1),
+                f"File {rel_html} title should not contain personal branding 'MrByronEdMcK'"
             )
+            # Also verify header doesn't contain personal brand badge
+            h1_match = re.search(r'<h1>(.*?)</h1>', content, re.IGNORECASE | re.DOTALL)
+            if h1_match:
+                self.assertNotIn(
+                    'MrByronEdMcK',
+                    h1_match.group(1),
+                    f"File {rel_html} h1 header should not contain personal branding 'MrByronEdMcK'"
+                )
 
     def test_theme_css_tokens(self):
         """Verify essential CSS design tokens exist in theme.css."""
